@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="927.0" prefWidth="1199.0" xmlns="http://javafx.com/javafx/17.0.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drxlog.java.ordermanager.PrimaryController">
+   <children>
+      <TextField layoutX="415.0" layoutY="14.0" promptText="Поиск..." />
+      <TextField layoutX="1037.0" layoutY="14.0" promptText="Поиск..." />
+      <Button fx:id="btnMoveRightElements" layoutX="572.0" layoutY="352.0" mnemonicParsing="false" onAction="#moveRightElements">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/next.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnMoveLeftElements" layoutX="572.0" layoutY="420.0" mnemonicParsing="false" onAction="#moveLeftElements">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/left-arrow.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnSettings" layoutX="572.0" layoutY="735.0" mnemonicParsing="false" onAction="#openSettings">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/settings.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <HBox alignment="CENTER" layoutX="14.0" layoutY="39.0" prefHeight="48.0" prefWidth="550.0">
+         <children>
+            <Button fx:id="btnSetDirOrder" mnemonicParsing="false" onAction="#setDirOrder" prefHeight="30.0" prefWidth="30.0">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/folder.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="fieldDirOrder" prefHeight="30.0" prefWidth="436.0" promptText="С://" />
+            <Button fx:id="btnUpDirOrder" mnemonicParsing="false" onAction="#upDirOrder" prefHeight="30.0" prefWidth="30.0">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/ic-upward_97620.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnRefreshOrder" mnemonicParsing="false" onAction="#refreshOrder" prefHeight="30.0" prefWidth="30.0">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/refresh-page-arrow-button_icon-icons.com_53909.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <Label fx:id="labelOrderDir" layoutX="14.0" layoutY="16.0" text="Текущий заказ">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelJobDir" layoutX="636.0" layoutY="16.0" text="Рабочая папка">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="387.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/magnifier.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="1006.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/magnifier.png" />
+         </image>
+      </ImageView>
+      <ListView fx:id="mainConsole" layoutX="14.0" layoutY="813.0" prefHeight="99.0" prefWidth="1171.0">
+         <cursor>
+            <Cursor fx:constant="MOVE" />
+         </cursor></ListView>
+      <Label layoutX="16.0" layoutY="793.0" text="Консоль уведомлений:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnCreateJobTable" layoutX="641.0" layoutY="734.0" mnemonicParsing="false" onAction="#createJobTable" prefHeight="50.0" prefWidth="541.0" text="Сформировать" />
+      <Button fx:id="btnClearJobTable" layoutX="19.0" layoutY="734.0" mnemonicParsing="false" onAction="#clearJobTable" prefHeight="50.0" prefWidth="541.0" text="Очистить Всё" />
+      <HBox alignment="CENTER" layoutX="636.0" layoutY="39.0" prefHeight="48.0" prefWidth="550.0">
+         <children>
+            <Button fx:id="btnSetDirJob" mnemonicParsing="false" onAction="#setDirJob" prefHeight="30.0" prefWidth="30.0">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/folder.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="fieldDirJob" prefHeight="30.0" prefWidth="436.0" promptText="С://" />
+            <Button fx:id="btnUpDirJob" mnemonicParsing="false" onAction="#upDirJob" prefHeight="30.0" prefWidth="30.0">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/ic-upward_97620.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="btnRefreshJob" mnemonicParsing="false" onAction="#refreshJob" prefHeight="30.0" prefWidth="30.0">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/refresh-page-arrow-button_icon-icons.com_53909.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <TableView fx:id="tableOrder" layoutX="16.0" layoutY="87.0" prefHeight="364.0" prefWidth="550.0">
+         <columns>
+            <TableColumn fx:id="columnIdOrder" prefWidth="229.0" text="Имя" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tableJob" layoutX="636.0" layoutY="87.0" prefHeight="364.0" prefWidth="550.0">
+         <columns>
+            <TableColumn fx:id="columnIdJob" prefWidth="254.0" text="Имя" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tableModelView" layoutX="16.0" layoutY="479.0" prefHeight="221.0" prefWidth="550.0">
+         <columns>
+            <TableColumn fx:id="columnIdModelView" prefWidth="227.0" text="Имя" />
+         </columns>
+      </TableView>
+      <HBox alignment="CENTER_LEFT" layoutX="16.0" layoutY="450.0" prefHeight="25.0" prefWidth="550.0">
+         <children>
+            <Label fx:id="labelOrder" text="Элементов:">
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="labelSelOrder" text="Выбрано:" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="16.0" layoutY="700.0" prefHeight="25.0" prefWidth="550.0">
+         <children>
+            <Label fx:id="labelView" text="Элементов:">
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="labelSelView" text="Выбрано:" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="636.0" layoutY="451.0" prefHeight="25.0" prefWidth="550.0">
+         <children>
+            <Label fx:id="labelJob" text="Элементов:">
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="labelSelJob" text="Выбрано:" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" layoutX="637.0" layoutY="700.0" prefHeight="25.0" prefWidth="550.0">
+         <children>
+            <Label fx:id="labelViewJob" text="Элементов:">
+               <HBox.margin>
+                  <Insets right="30.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="labelSelViewJob" text="Выбрано:">
+               <HBox.margin>
+                  <Insets right="280.0" />
+               </HBox.margin>
+            </Label>
+            <Button fx:id="btnClearTableViewJob" mnemonicParsing="false" onAction="#clearTableViewJob" prefHeight="13.0" prefWidth="86.0" text="Очистить">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <TableView fx:id="tableModelViewJob" layoutX="636.0" layoutY="479.0" prefHeight="221.0" prefWidth="550.0">
+         <columns>
+            <TableColumn fx:id="columnIdModelViewJob" prefWidth="252.0" text="Имя" />
+         </columns>
+      </TableView>
+      <Button fx:id="btnAddAuthor" layoutX="585.0" layoutY="87.0" mnemonicParsing="false" onAction="#addAuthor" prefHeight="30.0" prefWidth="29.0" text="A" />
+      <Button fx:id="btnOpenMagic" layoutX="573.0" layoutY="130.0" mnemonicParsing="false" onAction="#openMagic" text="MAGIC" />
+   </children>
+</AnchorPane>
