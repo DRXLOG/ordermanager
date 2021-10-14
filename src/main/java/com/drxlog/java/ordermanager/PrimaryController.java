@@ -333,7 +333,7 @@ public class PrimaryController {
         if (upperPath != null) {
             fieldDirOrder.setText(upperPath.toString());
             updateList(upperPath,"order");
-            outConsole("Открыт каталог выше!");
+            outConsole("Открыт каталог выше тест коммит!");
         } else {
             outConsole("Выше нет каталога!");
         }
