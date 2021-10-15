@@ -275,8 +275,9 @@ public class PrimaryController {
     }
 
     @FXML
-    void openSettings(ActionEvent event) {
-        outConsole("Открыты настройки");
+    void openSettings(ActionEvent event) throws IOException {
+        App.setRoot("secondary");
+        //outConsole("Открыты настройки");
     }
 
     @FXML
@@ -346,11 +347,11 @@ public class PrimaryController {
     }
 
     public void initialize() {
-        //columnIdOrder.setCellValueFactory(new TreeItemPropertyValueFactory<>("idName"));
-        //columnModelOrder.setCellValueFactory(new TreeItemPropertyValueFactory<>("modelName"));
+
         columnIdOrder.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getIdName()));
         TableView.TableViewSelectionModel<FileInfo> selectionModel = tableOrder.getSelectionModel();
         selectionModel.setSelectionMode(SelectionMode.MULTIPLE);
+
         TableColumn<FileInfo, String> countFiles = new TableColumn<FileInfo, String>("Количество");
         countFiles.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getFilesCount()));
         tableOrder.getColumns().addAll(countFiles);
@@ -535,8 +536,6 @@ public class PrimaryController {
                         }
                     }
                     Stream<Path> stream = list.stream();;
-
-                    //System.out.println(stream);
                     tableJob.getItems().addAll(stream.map(FileInfo::new).collect(Collectors.toList()));
                     tableJob.sort();
                     labelJob.setText("Элементов: "+tableJob.getItems().size());
@@ -549,14 +548,6 @@ public class PrimaryController {
                     labelJob.setText("Элементов: "+tableJob.getItems().size());
                     labelSelJob.setText("Выбрано 0 элем.");
                 }
-
-                //List list = null;
-                //for (File item : dir.listFiles()) {
-                //    list.add(item.getName());
-                //}
-                //list.remove();
-                //System.out.println(list);
-                //System.out.println(list);
 
             }
             if (table.equals("view")) {
@@ -572,8 +563,6 @@ public class PrimaryController {
                 tableModelViewJob.sort();
                 labelViewJob.setText("Элементов: "+tableModelViewJob.getItems().size());
                 labelSelViewJob.setText("Выбрано 0 элем.");
-                //labelView.setText("Элементов: "+tableModelView.getItems().size());
-                //labelSelView.setText("Выбрано 0 элем.");
             }
             File file = new File("config.properties");
             Properties properties = new Properties();

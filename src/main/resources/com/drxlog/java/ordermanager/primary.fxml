@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="927.0" prefWidth="1199.0" xmlns="http://javafx.com/javafx/17.0.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drxlog.java.ordermanager.PrimaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="930.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.drxlog.java.ordermanager.PrimaryController">
    <children>
       <TextField layoutX="415.0" layoutY="14.0" promptText="Поиск..." />
       <TextField layoutX="1037.0" layoutY="14.0" promptText="Поиск..." />
@@ -210,6 +210,5 @@
          </columns>
       </TableView>
       <Button fx:id="btnAddAuthor" layoutX="585.0" layoutY="87.0" mnemonicParsing="false" onAction="#addAuthor" prefHeight="30.0" prefWidth="29.0" text="A" />
-      <Button fx:id="btnOpenMagic" layoutX="573.0" layoutY="130.0" mnemonicParsing="false" onAction="#openMagic" text="MAGIC" />
    </children>
 </AnchorPane>

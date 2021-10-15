@@ -34,20 +34,27 @@ public class DirRename {
                 String idCase = words[0];
                 List<String> list1 = new ArrayList<>();
 
-                list1.add(words[1]);
+                if (words.length == 1) {
+                    list1.add("NOSTEPS");
+                    keys.put(idCase, list1);
+                } else {
+                    list1.add(words[1]);
+                    keys.put(idCase, list1);
+                }
 
-                keys.put(idCase, list1);
             }
-
-            //steps.add(words[1]);
 
         }
         StringBuilder completeName = new StringBuilder();
         System.out.println(keys);
         for (String key : keys.keySet()) {
-            completeName.append(key).append("_");
-            for (String step : keys.get(key)) {
-                completeName.append(step);
+            if (keys.get(key).get(0).equals("NOSTEPS")) {
+                completeName.append(key);
+            } else {
+                completeName.append(key).append("_");
+                for (String step : keys.get(key)) {
+                    completeName.append(step);
+                }
             }
             completeName.append("+");
         }
@@ -55,8 +62,5 @@ public class DirRename {
         this.completeName = completeName.toString();
         System.out.println(completeName);
 
-
-        //this.idName = path.getFileName().toString();
-        //this.filePath = path.toString();
     }
 }
