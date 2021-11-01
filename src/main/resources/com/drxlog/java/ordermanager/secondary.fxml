@@ -44,7 +44,7 @@
                                           <Insets right="5.0" />
                                        </HBox.margin>
                                     </ImageView>
-                                    <TextField fx:id="tfFindOrder" />
+                                    <TextField fx:id="tfFindOrder" promptText="Поиск..." />
                                  </children>
                               </HBox>
                            </children>
@@ -54,7 +54,7 @@
                         </HBox>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button mnemonicParsing="false">
+                              <Button fx:id="btnSetDirOrder" mnemonicParsing="false" onAction="#setDirOrder">
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -63,8 +63,8 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <TextField HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false">
+                              <TextField fx:id="tfDirOrder" editable="false" promptText="С:\\" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="btnUpDirOrder" mnemonicParsing="false" onAction="#upDirOrder">
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -73,7 +73,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button mnemonicParsing="false">
+                              <Button fx:id="btnRefreshTableOrder" mnemonicParsing="false" onAction="#refreshTableOrder">
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -192,9 +192,9 @@
                         </VBox>
                         <VBox>
                            <children>
-                              <TableView prefHeight="400.0">
+                              <TableView fx:id="tblOrder" onKeyPressed="#keyPressedTableOrder" prefHeight="400.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="Имя" />
+                                  <TableColumn fx:id="columnNameInTableOrder" prefWidth="239.0" text="Имя" />
                                 </columns>
                                  <VBox.margin>
                                     <Insets top="10.0" />
@@ -204,12 +204,12 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Элементов:">
+                                          <Label fx:id="lblCountElementToTableOrder" text="Элементов:">
                                              <HBox.margin>
                                                 <Insets right="40.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <Label text="Выбрано:" />
+                                          <Label fx:id="lblCountSelectElementToTableOrder" text="Выбрано:" />
                                        </children>
                                        <HBox.margin>
                                           <Insets />
@@ -220,7 +220,7 @@
                                     </HBox>
                                     <HBox alignment="TOP_RIGHT" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Удалить выделенные">
+                                          <Button fx:id="btnDeleteSelectElementInTableOrder" mnemonicParsing="false" onAction="#deleteSelectElementInTableOrder" text="Удалить выделенные">
                                              <HBox.margin>
                                                 <Insets left="5.0" right="5.0" />
                                              </HBox.margin>
@@ -228,7 +228,7 @@
                                                 <Font size="10.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" text="Очистить таблицу">
+                                          <Button fx:id="btnClearTableOrder" mnemonicParsing="false" onAction="#clearTableOrder" text="Очистить таблицу">
                                              <HBox.margin>
                                                 <Insets left="5.0" right="5.0" />
                                              </HBox.margin>
@@ -243,9 +243,9 @@
                                     <Insets bottom="2.0" top="2.0" />
                                  </padding>
                               </HBox>
-                              <TableView prefHeight="250.0">
+                              <TableView fx:id="tblPreviewOrder" prefHeight="250.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="Имя" />
+                                  <TableColumn fx:id="columnNameInTablePreviewOrder" prefWidth="234.0" text="Имя" />
                                 </columns>
                                  <VBox.margin>
                                     <Insets top="10.0" />
@@ -255,12 +255,12 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Элементов:">
+                                          <Label fx:id="lblCountElementToTablePreviewOrder" text="Элементов:">
                                              <HBox.margin>
                                                 <Insets right="40.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <Label text="Выбрано:" />
+                                          <Label fx:id="lblCountSelectElementToTablePreviewOrder" text="Выбрано:" />
                                        </children>
                                        <HBox.margin>
                                           <Insets />
@@ -271,7 +271,7 @@
                                     </HBox>
                                     <HBox alignment="TOP_RIGHT" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Удалить выделенные">
+                                          <Button fx:id="btnDeleteSelectElementInTablePreviewOrder" mnemonicParsing="false" onAction="#deleteSelectElementInTablePreviewOrder" text="Удалить выделенные из превью">
                                              <HBox.margin>
                                                 <Insets left="5.0" right="5.0" />
                                              </HBox.margin>
@@ -279,7 +279,7 @@
                                                 <Font size="10.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" text="Очистить таблицу">
+                                          <Button fx:id="btnClearTablePreviewOrder" mnemonicParsing="false" onAction="#clearTablePreviewOrder" text="Очистить таблицу">
                                              <HBox.margin>
                                                 <Insets left="5.0" right="5.0" />
                                              </HBox.margin>
@@ -300,7 +300,7 @@
                   </VBox>
                   <VBox alignment="CENTER">
                      <children>
-                        <Button mnemonicParsing="false">
+                        <Button fx:id="btnMoveElementToRight" mnemonicParsing="false" onAction="#moveElementToRight">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -312,7 +312,7 @@
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button fx:id="btnMoveElementToLeft" mnemonicParsing="false" onAction="#moveElementToLeft">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -324,7 +324,7 @@
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button fx:id="btnCreateTable" mnemonicParsing="false" onAction="#createTable">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -336,7 +336,7 @@
                               <Insets bottom="20.0" />
                            </VBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false">
+                        <Button fx:id="btnOpenSettings" mnemonicParsing="false" onAction="#openSettings">
                            <graphic>
                               <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -375,7 +375,7 @@
                                           <Insets right="5.0" />
                                        </HBox.margin>
                                     </ImageView>
-                                    <TextField />
+                                    <TextField promptText="Поиск..." />
                                  </children>
                               </HBox>
                            </children>
@@ -385,7 +385,7 @@
                         </HBox>
                         <HBox alignment="CENTER">
                            <children>
-                              <Button mnemonicParsing="false">
+                              <Button fx:id="btnSetDirJob" mnemonicParsing="false" onAction="#setDirJob">
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -394,8 +394,8 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <TextField HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false">
+                              <TextField fx:id="tfDirJob" editable="false" promptText="C:\\" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="btnUpDirJob" mnemonicParsing="false" onAction="#upDirJob">
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -404,7 +404,7 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Button mnemonicParsing="false">
+                              <Button fx:id="btnRefreshTableJob" mnemonicParsing="false" onAction="#refreshTableJob">
                                  <graphic>
                                     <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -523,9 +523,9 @@
                         </VBox>
                         <VBox>
                            <children>
-                              <TableView prefHeight="400.0">
+                              <TableView fx:id="tblJob" onKeyPressed="#keyPressedTableJob" prefHeight="400.0">
                                  <columns>
-                                    <TableColumn prefWidth="75.0" text="Имя" />
+                                    <TableColumn fx:id="columnNameInTableJob" prefWidth="246.0" text="Имя" />
                                  </columns>
                                  <VBox.margin>
                                     <Insets top="10.0" />
@@ -535,12 +535,12 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Элементов:">
+                                          <Label fx:id="lblCountElementToTableJob" text="Элементов:">
                                              <HBox.margin>
                                                 <Insets right="40.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <Label text="Выбрано:" />
+                                          <Label fx:id="lblCountSelectElementToTableJob" text="Выбрано:" />
                                        </children>
                                        <HBox.margin>
                                           <Insets />
@@ -551,7 +551,7 @@
                                     </HBox>
                                     <HBox alignment="TOP_RIGHT" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Удалить выделенные">
+                                          <Button fx:id="btnDeleteSelectElementInTableJob" mnemonicParsing="false" onAction="#deleteSelectElementInTableJob" text="Удалить выделенные">
                                              <HBox.margin>
                                                 <Insets left="5.0" right="5.0" />
                                              </HBox.margin>
@@ -559,7 +559,7 @@
                                                 <Font size="10.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" text="Очистить таблицу">
+                                          <Button fx:id="btnClearTableJob" mnemonicParsing="false" onAction="#clearTableJob" text="Очистить таблицу">
                                              <HBox.margin>
                                                 <Insets left="5.0" right="5.0" />
                                              </HBox.margin>
@@ -574,9 +574,9 @@
                                     <Insets bottom="2.0" top="2.0" />
                                  </padding>
                               </HBox>
-                              <TableView prefHeight="250.0">
+                              <TableView fx:id="tblPreviewJob" prefHeight="250.0">
                                  <columns>
-                                    <TableColumn prefWidth="75.0" text="Имя" />
+                                    <TableColumn fx:id="columnNameInTablePreviewJob" prefWidth="248.0" text="Имя" />
                                  </columns>
                                  <VBox.margin>
                                     <Insets top="10.0" />
@@ -586,12 +586,12 @@
                                  <children>
                                     <HBox alignment="CENTER_LEFT">
                                        <children>
-                                          <Label text="Элементов:">
+                                          <Label fx:id="lblCountElementToTablePreviewJob" text="Элементов:">
                                              <HBox.margin>
                                                 <Insets right="40.0" />
                                              </HBox.margin>
                                           </Label>
-                                          <Label text="Выбрано:" />
+                                          <Label fx:id="lblCountSelectElementToTablePreviewJob" text="Выбрано:" />
                                        </children>
                                        <HBox.margin>
                                           <Insets />
@@ -602,7 +602,7 @@
                                     </HBox>
                                     <HBox alignment="TOP_RIGHT" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Button mnemonicParsing="false" text="Удалить выделенные">
+                                          <Button fx:id="btnDeleteSelectElementInTablePreviewJob" mnemonicParsing="false" onAction="#deleteSelectElementInTablePreviewJob" text="Удалить выделенные из превью">
                                              <HBox.margin>
                                                 <Insets left="5.0" right="5.0" />
                                              </HBox.margin>
@@ -610,7 +610,7 @@
                                                 <Font size="10.0" />
                                              </font>
                                           </Button>
-                                          <Button mnemonicParsing="false" text="Очистить таблицу">
+                                          <Button fx:id="btnClearTablePreviewJob" mnemonicParsing="false" onAction="#clearTablePreviewJob" text="Очистить таблицу">
                                              <HBox.margin>
                                                 <Insets left="5.0" right="5.0" />
                                              </HBox.margin>
@@ -638,7 +638,7 @@
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </Label>
-                  <ListView maxHeight="120.0" minHeight="120.0" />
+                  <ListView fx:id="lvNotificationConsole" maxHeight="120.0" minHeight="120.0" />
                </children>
             </VBox>
          </children>

@@ -45,7 +45,7 @@ public class FileInfo {
                 this.filesCount = Long.toString(a);
             }
         } catch (IOException e) {
-            System.out.println("ЧЕ ПРОИСХОДИТ!!!");
+            WarningDialog.display("Ошибка!","Ошибка загрузки объектов директорий",e.getMessage());
         }
 
     }

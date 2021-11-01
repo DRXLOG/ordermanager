@@ -26,6 +26,12 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/net.java.dev.jna/jna -->
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>4.2.2</version>
+        </dependency>
     </dependencies>
     <distributionManagement>
         <repository>
