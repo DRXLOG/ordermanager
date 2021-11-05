@@ -5,9 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class FileInfo {
-    private String idName = null;
-    private String filePath = null;
-    private String filesCount = null;
+    private String idName;
+    private String filePath;
+    private String filesCount;
 
     public FileInfo() {
     }

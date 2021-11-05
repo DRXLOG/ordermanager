@@ -22,6 +22,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,6 +35,8 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import com.sun.jna.platform.win32.W32FileUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.input.buffer.CircularBufferInputStream;
 
 public class SecondaryController {
 
@@ -158,6 +161,7 @@ public class SecondaryController {
     private ListView<String> lvNotificationConsole;
 
     public ObservableList<String> newMessage = FXCollections.observableArrayList();
+
 
     public void initialize() {
         columnNameInTableOrder.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getIdName()));
@@ -384,38 +388,48 @@ public class SecondaryController {
             }
             if (ChoiceDialog.display("Удаление элементов", "Удалить элементы?")) {
                 for (String pathDelete : pathsList) {
-                    File deleteFile = new File(pathDelete);
-                    if (deleteFile.isDirectory()){
-                        try{
-                            File tmp = new File("tmp");
-                            Path tmpFilePath = Paths.get(tmp.getAbsolutePath() + File.separator + deleteFile.getName());
-                            System.out.println(tmpFilePath);
-                            System.out.println(tmp.getAbsolutePath());
-                            if (tmp.exists()){
-                                Files.move(deleteFile.toPath(), tmpFilePath);
+                    try {
+                        if (Files.isDirectory(Paths.get(pathDelete))){
+                            Path tmp = Paths.get(Paths.get(pathDelete).getRoot()+File.separator+"tmp");
+                            System.out.println(tmp);
+                            //FileUtils.deleteDirectory(new File("D:\\test\\2021 год\\Ноябрь\\02.11\\Кирилл\\1"));
+                            if (Files.exists(tmp)){
+                                System.out.println("tmp есть!");
+                                Files.move(Paths.get(pathDelete), Paths.get(tmp+File.separator+Paths.get(pathDelete).getFileName()));
+                                FileUtils.deleteDirectory(new File(String.valueOf(Paths.get(tmp+ File.separator+Paths.get(pathDelete).getFileName()))));
+                                CircularBuffer.action(new FileDelete(Paths.get("C://"), Paths.get("C://")));
                             } else {
-                                Files.createDirectory(tmp.toPath());
-                                Files.move(deleteFile.toPath(), tmpFilePath);
+                                System.out.println("tmp нет!");
+                                Files.createDirectory(tmp);
+                                Files.move(Paths.get(pathDelete), Paths.get(tmp+File.separator+Paths.get(pathDelete).getFileName()));
+                                FileUtils.deleteDirectory(new File(String.valueOf(String.valueOf(Paths.get(tmp+ File.separator+Paths.get(pathDelete).getFileName())))));
+
                             }
 
-                            W32FileUtils w32FileUtils = (W32FileUtils) W32FileUtils.getInstance();
-                            if (w32FileUtils.hasTrash()) {
-                                w32FileUtils.moveToTrash( new File[] {new File(String.valueOf(tmpFilePath))});
-                                updateTableOrder(Paths.get(tfDirOrder.getText()));
-                            }
-                        } catch (IOException e) {
-                            WarningDialog.display("Ошибка", "Директория не может быть удалена!", e.getMessage());
-                        }
-                    } else {
-                        if (deleteFile.delete()) {
-                            outConsole(deleteFile.getName()+" удален!");
-                            updateTableOrder(Paths.get(tfDirOrder.getText()));
+//                            W32FileUtils w32FileUtils = (W32FileUtils) W32FileUtils.getInstance();
+//                            if (w32FileUtils.hasTrash()) {
+//                                w32FileUtils.moveToTrash( new File[] {new File(String.valueOf(tmpFilePath))});
+//                                updateTableOrder(Paths.get(tfDirOrder.getText()));
+//                            }
                         } else {
-                            WarningDialog.display("Ошибка", "Файл не может быть удален!", "Файл не существует или произошла какая-то ошибка при удалении");
+                            if (Files.deleteIfExists(Paths.get(pathDelete))) {
+                                outConsole(Paths.get(pathDelete).getFileName()+" удален!");
+                                updateTableOrder(Paths.get(tfDirOrder.getText()));
+                            } else {
+                                WarningDialog.display("Ошибка", "Файл не может быть удален!", "Файл не существует или произошла какая-то ошибка при удалении");
+                            }
                         }
+                    } catch (IOException e) {
+                        WarningDialog.display("Ошибка", "Файл не может быть удален!", e.getMessage()+e.getStackTrace());
                     }
+
                 }
             }
+        }
+        if (event.isControlDown() && (event.getCode().equals(KeyCode.Z))) {
+            System.out.println("КОНТРОЛ З");
+            //String data = CircularBuffer.recover(new FileDelete(Paths.get("C://"), Paths.get("C://")), String.class);
+            System.out.println(CircularBuffer.<String>recover("ХУЙ"));
         }
 
     }
