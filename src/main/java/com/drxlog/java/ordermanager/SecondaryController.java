@@ -1,6 +1,8 @@
 package com.drxlog.java.ordermanager;
 
 
+import com.drxlog.java.ordermanager.buffer.CircularBuffer;
+import com.drxlog.java.ordermanager.buffer.RenameFile;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -345,6 +347,7 @@ public class SecondaryController {
 
                         if (oldFile.exists()) {
                             if(oldFile.renameTo(newFile)){
+                                CircularBuffer.addElement(new RenameFile(oldFile.toPath(),newFile.toPath()));
                                 outConsole("Файл "+oldFile+" успешно переименован в "+newFile);
                             }else{
                                 WarningDialog.display("Ошибка!", "Файл не был переименован!", "Возможно открыт в другой программе!");
@@ -397,7 +400,7 @@ public class SecondaryController {
                                 System.out.println("tmp есть!");
                                 Files.move(Paths.get(pathDelete), Paths.get(tmp+File.separator+Paths.get(pathDelete).getFileName()));
                                 FileUtils.deleteDirectory(new File(String.valueOf(Paths.get(tmp+ File.separator+Paths.get(pathDelete).getFileName()))));
-                                CircularBuffer.action(new FileDelete(Paths.get("C://"), Paths.get("C://")));
+                                //CircularBuffer.action(new FileDelete(Paths.get("C://"), Paths.get("C://")));
                             } else {
                                 System.out.println("tmp нет!");
                                 Files.createDirectory(tmp);
@@ -406,11 +409,6 @@ public class SecondaryController {
 
                             }
 
-//                            W32FileUtils w32FileUtils = (W32FileUtils) W32FileUtils.getInstance();
-//                            if (w32FileUtils.hasTrash()) {
-//                                w32FileUtils.moveToTrash( new File[] {new File(String.valueOf(tmpFilePath))});
-//                                updateTableOrder(Paths.get(tfDirOrder.getText()));
-//                            }
                         } else {
                             if (Files.deleteIfExists(Paths.get(pathDelete))) {
                                 outConsole(Paths.get(pathDelete).getFileName()+" удален!");
@@ -428,8 +426,9 @@ public class SecondaryController {
         }
         if (event.isControlDown() && (event.getCode().equals(KeyCode.Z))) {
             System.out.println("КОНТРОЛ З");
+            CircularBuffer.removeLastElement();
             //String data = CircularBuffer.recover(new FileDelete(Paths.get("C://"), Paths.get("C://")), String.class);
-            System.out.println(CircularBuffer.<String>recover("ХУЙ"));
+            //System.out.println(CircularBuffer.<String>recover("ХУЙ"));
         }
 
     }
@@ -609,7 +608,7 @@ public class SecondaryController {
                 lblCountElementToTableOrder.setText("Элементов: "+tblOrder.getItems().size());
                 lblCountSelectElementToTableOrder.setText("Выбрано 0 элем.");
             }
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             outConsole("Не увдлось обновить таблицу Order");
         }
 
@@ -659,7 +658,7 @@ public class SecondaryController {
                 lblCountElementToTableJob.setText("Элементов: "+tblJob.getItems().size());
                 lblCountSelectElementToTableJob.setText("Выбрано 0 элем.");
             }
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             outConsole("Не удалось обновить таблицу Job");
         }
     }
@@ -671,7 +670,7 @@ public class SecondaryController {
             tblPreviewJob.sort();
             lblCountElementToTablePreviewJob.setText("Элементов: "+tblPreviewJob.getItems().size());
             lblCountSelectElementToTablePreviewJob.setText("Выбрано 0 элем.");
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             outConsole("Не удалось обновить таблицу PreviewJob");
         }
     }

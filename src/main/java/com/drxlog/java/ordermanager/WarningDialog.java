@@ -35,7 +35,7 @@ public class WarningDialog {
         stage.close();
     }
 
-    static void display() {
+    public static void display() {
         try {
             FXMLLoader loader = new FXMLLoader(ChoiceDialog.class.getResource("warningdialog.fxml"));
             Scene newScene = new Scene(loader.load());
@@ -51,7 +51,7 @@ public class WarningDialog {
         }
     }
 
-    static void display(String title, String message, String error) {
+    public static void display(String title, String message, String error) {
         WarningDialog.message = message;
         WarningDialog.error = error;
         try {

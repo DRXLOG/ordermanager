@@ -570,7 +570,7 @@ public class PrimaryController {
             properties.setProperty("OPERATOR_PATH", fieldDirJob.getText());
             FileWriter writer = new FileWriter(file);
             properties.store(writer, "Настройки программы");
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "Не удалось загрузить директори", ButtonType.OK);
             alert.showAndWait();
         }
